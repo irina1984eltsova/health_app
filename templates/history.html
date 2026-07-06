@@ -3,34 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>История</title>
+    <title>Дневник здоровья</title>
     <style>
         body { font-family: Arial; max-width: 500px; margin: 0 auto; padding: 20px; background: #f5f7fa; }
         .card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: block; font-weight: bold; margin-bottom: 4px; color: #2c3e50; }
+        .input-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
+        .btn { background: #4CAF50; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; width: 100%; cursor: pointer; }
+        .btn:hover { background: #45a049; }
         .nav { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         .nav a { text-decoration: none; padding: 10px 16px; background: #ecf0f1; border-radius: 10px; color: #2c3e50; }
         .nav a.active { background: #3498db; color: white; }
-        .history-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; font-size: 14px; }
     </style>
 </head>
 <body>
-    <h1>📈 История замеров</h1>
+    <h1>🩺 Мой дневник здоровья</h1>
     <div class="nav">
-        <a href="/">📊 Показатели</a>
+        <a href="/" class="active">📊 Показатели</a>
         <a href="/menu">🍽️ Меню</a>
-        <a href="/history" class="active">📈 История</a>
+        <a href="/history">📈 История</a>
         <a href="/medications">💊 Лекарства</a>
     </div>
-    
+
     <div class="card">
-        <h3>Последние 30 дней</h3>
-        {% for m in measurements %}
-        <div class="history-row">
-            <div><strong>{{ m[1] }}</strong> {{ m[2] }}</div>
-            <div>{{ m[3] }} · {{ m[4] }} уд · {{ m[5] }}%</div>
-            <div>{{ m[9] }} кг</div>
-        </div>
-        {% endfor %}
+        <h2>📥 Утренние показатели</h2>
+        <form action="/save_measurements" method="post">
+            <div class="input-group">
+                <label>Дата</label>
+                <input type="text" name="date" value="{{ today }}">
+            </div>
+            <div class="input-group">
+                <label>Время</label>
+                <input type="text" name="time" value="{{ last[2] if last else '07:30' }}">
+            </div>
+            <div class="input-group">
+                <label>Давление (сист/диаст)</label>
+                <input type="text" name="pressure" value="{{ last[3] if last else '120/80' }}">
+            </div>
+            <div class="input-group">
+                <label>Пульс</label>
+                <input type="number" name="pulse" value="{{ last[4] if last else 70 }}">
+            </div>
+            <div class="input-group">
+                <label>Сатурация (%)</label>
+                <input type="number" name="saturation" value="{{ last[5] if last else 98 }}">
+            </div>
+            <div class="input-group">
+                <label>Сон (часы)</label>
+                <input type="number" step="0.1" name="sleep" value="{{ last[6] if last else 7.5 }}">
+            </div>
+            <div class="input-group">
+                <label>Глубокий сон (%)</label>
+                <input type="number" name="deep_sleep" value="{{ last[7] if last else 34 }}">
+            </div>
+            <div class="input-group">
+                <label>Пробуждения</label>
+                <input type="number" name="awakenings" value="{{ last[8] if last else 2 }}">
+            </div>
+            <div class="input-group">
+                <label>Вес (кг)</label>
+                <input type="number" step="0.1" name="weight" value="{{ last[9] if last else 89 }}">
+            </div>
+            <div class="input-group">
+                <label>Талия (см)</label>
+                <input type="number" step="0.1" name="waist" value="{{ last[10] if last else 88 }}">
+            </div>
+            <div class="input-group">
+                <label>Бёдра (см)</label>
+                <input type="number" step="0.1" name="hips" value="{{ last[11] if last else 112 }}">
+            </div>
+            <div class="input-group">
+                <label>День цикла</label>
+                <input type="number" name="cycle_day" value="{{ last[12] if last else 21 }}">
+            </div>
+            <button class="btn">💾 Сохранить замеры</button>
+        </form>
     </div>
 </body>
 </html>
