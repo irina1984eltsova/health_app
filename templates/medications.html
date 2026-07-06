@@ -12,6 +12,8 @@
         .nav a.active { background: #3498db; color: white; }
         .med-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
         .btn-small { background: #4CAF50; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+        .input-group { margin-bottom: 12px; }
+        .input-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
     </style>
 </head>
 <body>
@@ -22,17 +24,23 @@
         <a href="/history">📈 История</a>
         <a href="/medications" class="active">💊 Лекарства</a>
     </div>
-    
+
     <div class="card">
         <h3>Добавить приём</h3>
         <form action="/medications" method="post">
-            <input type="text" name="name" placeholder="Название" required>
-            <input type="text" name="dosage" placeholder="Дозировка">
-            <input type="text" name="time" placeholder="Время (08:00)">
+            <div class="input-group">
+                <input type="text" name="name" placeholder="Название препарата" required>
+            </div>
+            <div class="input-group">
+                <input type="text" name="dosage" placeholder="Дозировка (мг)">
+            </div>
+            <div class="input-group">
+                <input type="text" name="time" placeholder="Время (08:00)">
+            </div>
             <button class="btn-small" type="submit">Добавить</button>
         </form>
     </div>
-    
+
     <div class="card">
         <h3>История приёмов</h3>
         {% for m in medications %}
