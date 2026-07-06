@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню</title>
+    <style>
+        body { font-family: Arial; max-width: 500px; margin: 0 auto; padding: 20px; background: #f5f7fa; }
+        .card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .nav { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .nav a { text-decoration: none; padding: 10px 16px; background: #ecf0f1; border-radius: 10px; color: #2c3e50; }
+        .nav a.active { background: #3498db; color: white; }
+        .menu-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
+        .day-badge { background: #3498db; color: white; padding: 4px 12px; border-radius: 20px; font-size: 14px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <h1>🍽️ Меню на сегодня</h1>
+    <div class="nav">
+        <a href="/">📊 Показатели</a>
+        <a href="/menu" class="active">🍽️ Меню</a>
+        <a href="/history">📈 История</a>
+        <a href="/medications">💊 Лекарства</a>
+    </div>
+    
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>День {{ day_num }}</h2>
+            <span class="day-badge">{{ today }}</span>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h3>План питания</h3>
+        {% for item in menu %}
+        <div class="menu-row">
+            <div>
+                <strong>{{ item.meal }}</strong> ({{ item.time }})<br>
+                <span>{{ item.dish }}</span>
+                <span style="color: #7f8c8d; font-size: 14px;">{{ item.dry_weight }}</span>
+            </div>
+            <div style="text-align: right;">
+                <span style="font-weight: bold;">{{ item.calories }} ккал</span><br>
+                <span style="font-size: 12px; color: #7f8c8d;">
+                    соль {{ item.salt }}мг · сахар {{ item.sugar }}г · клетчатка {{ item.fiber }}г
+                </span>
+            </div>
+        </div>
+        {% if item.recipe %}
+        <div style="font-size: 13px; color: #555; padding: 4px 0 8px 0; border-bottom: 1px dashed #eee;">
+            📖 {{ item.recipe }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекарства</title>
+    <style>
+        body { font-family: Arial; max-width: 500px; margin: 0 auto; padding: 20px; background: #f5f7fa; }
+        .card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .nav { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .nav a { text-decoration: none; padding: 10px 16px; background: #ecf0f1; border-radius: 10px; color: #2c3e50; }
+        .nav a.active { background: #3498db; color: white; }
+        .med-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
+        .btn-small { background: #4CAF50; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>💊 Лекарства</h1>
+    <div class="nav">
+        <a href="/">📊 Показатели</a>
+        <a href="/menu">🍽️ Меню</a>
+        <a href="/history">📈 История</a>
+        <a href="/medications" class="active">💊 Лекарства</a>
+    </div>
+    
+    <div class="card">
+        <h3>Добавить приём</h3>
+        <form action="/medications" method="post">
+            <input type="text" name="name" placeholder="Название" required>
+            <input type="text" name="dosage" placeholder="Дозировка">
+            <input type="text" name="time" placeholder="Время (08:00)">
+            <button class="btn-small" type="submit">Добавить</button>
+        </form>
+    </div>
+    
+    <div class="card">
+        <h3>История приёмов</h3>
+        {% for m in medications %}
+        <div class="med-row">
+            <div>{{ m[1] }} ({{ m[2] }})</div>
+            <div>{{ m[3] }}</div>
+            <div>{% if m[4] %}✅ Принято{% else %}❌ Пропущено{% endif %}</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

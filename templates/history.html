@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>История</title>
+    <style>
+        body { font-family: Arial; max-width: 500px; margin: 0 auto; padding: 20px; background: #f5f7fa; }
+        .card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .nav { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .nav a { text-decoration: none; padding: 10px 16px; background: #ecf0f1; border-radius: 10px; color: #2c3e50; }
+        .nav a.active { background: #3498db; color: white; }
+        .history-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <h1>📈 История замеров</h1>
+    <div class="nav">
+        <a href="/">📊 Показатели</a>
+        <a href="/menu">🍽️ Меню</a>
+        <a href="/history" class="active">📈 История</a>
+        <a href="/medications">💊 Лекарства</a>
+    </div>
+    
+    <div class="card">
+        <h3>Последние 30 дней</h3>
+        {% for m in measurements %}
+        <div class="history-row">
+            <div><strong>{{ m[1] }}</strong> {{ m[2] }}</div>
+            <div>{{ m[3] }} · {{ m[4] }} уд · {{ m[5] }}%</div>
+            <div>{{ m[9] }} кг</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
