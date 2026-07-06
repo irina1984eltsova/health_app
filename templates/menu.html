@@ -12,6 +12,7 @@
         .nav a.active { background: #3498db; color: white; }
         .menu-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
         .day-badge { background: #3498db; color: white; padding: 4px 12px; border-radius: 20px; font-size: 14px; display: inline-block; }
+        .recipe { font-size: 13px; color: #555; padding: 4px 0 8px 0; border-bottom: 1px dashed #eee; }
     </style>
 </head>
 <body>
@@ -22,14 +23,15 @@
         <a href="/history">📈 История</a>
         <a href="/medications">💊 Лекарства</a>
     </div>
-    
+
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h2>День {{ day_num }}</h2>
             <span class="day-badge">{{ today }}</span>
         </div>
+        <p>Текущий вес: <strong>{{ weight }} кг</strong></p>
     </div>
-    
+
     <div class="card">
         <h3>План питания</h3>
         {% for item in menu %}
@@ -47,9 +49,7 @@
             </div>
         </div>
         {% if item.recipe %}
-        <div style="font-size: 13px; color: #555; padding: 4px 0 8px 0; border-bottom: 1px dashed #eee;">
-            📖 {{ item.recipe }}
-        </div>
+        <div class="recipe">📖 {{ item.recipe }}</div>
         {% endif %}
         {% endfor %}
     </div>
